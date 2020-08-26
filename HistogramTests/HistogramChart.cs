@@ -60,7 +60,7 @@ namespace UserControls
             }
         }
 
-        public bool _EnableXLabels=true;
+        private bool _EnableXLabels;
         public bool EnableXLabels { 
             get
             {
@@ -85,12 +85,14 @@ namespace UserControls
         public HistogramChart()
         {
             InitializeComponent();
+            _EnableXLabels = true;
         }
         public HistogramChart(double[] data,int numberOfBins)
         {
             InitializeComponent();
             this.data = data;
             this.numberOfBins = numberOfBins;
+            _EnableXLabels = true;
         }
 
         public HistogramChart(double[] data, double binWidth)
@@ -98,6 +100,7 @@ namespace UserControls
             InitializeComponent();
             this.data = data;
             this.binWidth = binWidth;
+            _EnableXLabels = true;
         }
 
         public void Compute(double[] data, double binWidth)
@@ -154,7 +157,7 @@ namespace UserControls
                 var To = center + binWidth / 2;
                 chart.Series.First().Points.AddXY(center, Bins[i]);
                 if(EnableXLabels)
-                    chart.ChartAreas[0].AxisX.CustomLabels.Add(new CustomLabel(From,To, $"{From:F0}-{To:F0}",0,LabelMarkStyle.Box));
+                    chart.ChartAreas[0].AxisX.CustomLabels.Add(new CustomLabel(From,To, $"{center:F0}-{center+binWidth:F0}",0,LabelMarkStyle.Box));
             }
 
             
